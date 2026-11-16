@@ -1,0 +1,37 @@
+footer {
+  margin: 0 5%;
+  min-height: 72px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  font-size: 8px;
+  letter-spacing: 1.3px;
+  color: #078c28;
+}
+.footer-star {
+  font-size: 19px;
+  margin-left: 12px;
+  color: #00cc33;
+}
+@media (min-width: 1600px) {
+  footer {
+    max-width: 1440px;
+    margin: auto;
+  }
+}
+@media (max-width: 760px) {
+  footer {
+    font-size: 7px;
+    letter-spacing: 0.5px;
+    flex-wrap: wrap;
+    padding: 20px 0;
+    gap: 12px;
+  }
+}
+@media (max-width: 760px) {
+  footer > span:last-child {
+    display: none;
+  }
+}

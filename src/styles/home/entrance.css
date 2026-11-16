@@ -1,0 +1,118 @@
+#boot-screen {
+  display: none;
+}
+.booting #boot-screen {
+  display: block;
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none;
+}
+#boot-rain {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+#boot-skip {
+  position: absolute;
+  right: 5%;
+  bottom: 28px;
+  padding: 12px 15px;
+  border: 1px solid #224d30;
+  background: #020805e6;
+  font-size: 10px;
+  color: #00cc33;
+  pointer-events: auto;
+  opacity: 0;
+  animation: boot-skip-in 0.3s 0.6s forwards;
+}
+.booting {
+  background: #000;
+}
+.booting body {
+  background: #000;
+  overflow: hidden;
+}
+.booting header {
+  opacity: 0;
+}
+.booting .intro > * {
+  opacity: 0;
+}
+.booting .visual {
+  opacity: 0;
+}
+.booting footer {
+  opacity: 0;
+}
+.booting .boot-piece {
+  animation: boot-materialize 0.75s var(--reveal-delay, 0s) both;
+}
+.booting .boot-revealed {
+  opacity: 1;
+  clip-path: none;
+  filter: none;
+  transform: none;
+  animation: none;
+}
+.booting #boot-screen:focus-within {
+  pointer-events: auto;
+}
+@keyframes boot-materialize {
+  0% {
+    opacity: 0;
+    clip-path: inset(0 0 100% 0);
+    filter: brightness(2.5);
+    transform: translateY(-9px);
+  }
+  45% {
+    opacity: 1;
+    filter: brightness(1.65);
+  }
+  100% {
+    opacity: 1;
+    clip-path: inset(0);
+    filter: none;
+    transform: none;
+  }
+}
+@keyframes boot-skip-in {
+  to {
+    opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .booting #boot-screen {
+    display: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .booting header {
+    opacity: 1;
+    animation: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .booting .intro > * {
+    opacity: 1;
+    animation: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .booting .visual {
+    opacity: 1;
+    animation: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .booting footer {
+    opacity: 1;
+    animation: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .booting body {
+    overflow: auto;
+    background: var(--bg);
+  }
+}

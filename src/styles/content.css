@@ -1,0 +1,111 @@
+main.content-page {
+  display: block;
+  max-width: 1120px;
+  min-height: calc(100svh - 122px);
+  margin: auto;
+  padding: 64px 5% 80px;
+}
+.content-page h1 {
+  overflow-wrap: anywhere;
+}
+.content-page h1 {
+  font-size: clamp(34px, 6vw, 64px);
+  white-space: normal;
+  margin: 0 0 24px;
+}
+.page-kicker {
+  font-size: 11px;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+}
+.page-intro {
+  max-width: 680px;
+  line-height: 1.9;
+  color: var(--green);
+  font-family: "Malgun Gothic", sans-serif;
+}
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  margin-top: 36px;
+}
+.entry-card {
+  display: block;
+  padding: 28px;
+  border: 1px solid var(--line);
+  background: #07100b;
+  transition:
+    border-color 0.2s,
+    transform 0.2s;
+}
+.entry-card:hover {
+  border-color: var(--bright);
+  transform: translateY(-3px);
+}
+.entry-card h2 {
+  font-size: 20px;
+  line-height: 1.6;
+  color: white;
+  overflow-wrap: anywhere;
+}
+.entry-card p {
+  font-family: "Malgun Gothic", sans-serif;
+  font-size: 15px;
+  line-height: 1.9;
+}
+.entry-meta {
+  font-size: 10px;
+  color: var(--green);
+  line-height: 1.9;
+}
+.tags {
+  font-size: 10px;
+  color: var(--green);
+  line-height: 1.9;
+}
+.tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+.tag {
+  border: 1px solid var(--line);
+  padding: 4px 8px;
+}
+.empty-state {
+  margin-top: 36px;
+  padding: 32px;
+  border: 1px dashed var(--line);
+  font-family: "Malgun Gothic", sans-serif;
+}
+.back-link {
+  display: inline-block;
+  margin-bottom: 32px;
+  font-size: 11px;
+}
+.about-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin-top: 28px;
+}
+@media (max-width: 760px) {
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 760px) {
+  main.content-page {
+    padding-top: 38px;
+  }
+}
+@media (max-width: 760px) {
+  .entry-card {
+    padding: 22px;
+  }
+}
+.entry-card h2 {
+  font-family: var(--font-ui);
+}

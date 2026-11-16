@@ -1,0 +1,111 @@
+@import "./home/hero.css";
+@import "./home/entrance.css";
+html.home-scroll {
+  --home-header-height: 50px;
+  --home-footer-height: 72px;
+  scroll-padding-top: var(--home-header-height);
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+}
+.home-scroll header {
+  position: sticky;
+  top: 0;
+  z-index: 6;
+  background: var(--bg);
+}
+.home-scroll main.home {
+  display: block;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  min-height: 0;
+}
+.home-screen {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+.home-hero {
+  position: relative;
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  align-items: start;
+  gap: 5%;
+  max-width: 1600px;
+  margin: auto;
+  padding: 54px 5% 78px;
+  min-height: calc(100svh - var(--home-header-height));
+}
+.scroll-cue {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 9px;
+  letter-spacing: 2px;
+  padding: 10px;
+}
+.scroll-cue span {
+  font-size: 20px;
+}
+@media (min-width: 761px) {
+  .home-hero #matrix {
+    height: clamp(
+      200px,
+      calc(100svh - var(--home-header-height) - 260px),
+      570px
+    );
+  }
+}
+.coming-soon {
+  display: grid;
+  place-items: center;
+  min-height: calc(
+    100svh - var(--home-header-height) - var(--home-footer-height)
+  );
+  padding: 80px 5%;
+  border-top: 1px solid var(--line);
+  text-align: center;
+  background: radial-gradient(ellipse at center, #0a1911, transparent 65%);
+}
+.coming-soon-content {
+  width: 100%;
+}
+.coming-soon .page-kicker {
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: var(--muted);
+}
+.coming-soon h2 {
+  font-family: var(--font-ui);
+  font-size: clamp(30px, 6vw, 80px);
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--green);
+  margin: 24px 0 40px;
+}
+.back-to-top {
+  display: inline-block;
+  font-size: 10px;
+  padding: 12px;
+}
+@media (max-width: 760px) {
+  html.home-scroll {
+    scroll-snap-type: y proximity;
+  }
+  .home-hero {
+    grid-template-columns: 1fr;
+    gap: 45px;
+    padding: 44px 5% 76px;
+  }
+  .coming-soon {
+    padding-block: 64px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html.home-scroll {
+    scroll-behavior: auto;
+  }
+}

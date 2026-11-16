@@ -1,0 +1,6 @@
+---
+import { formatDate } from '../../lib/content';
+interface Props { href:string; title:string; description:string; date:Date; tags:string[] }
+const {href,title,description,date,tags}=Astro.props;
+---
+<a class="entry-card" href={href}><time class="entry-meta" datetime={date.toISOString()}>{formatDate(date)}</time><h2>{title}</h2><p>{description}</p><div class="tags">{tags.map(t=><span class="tag">{t}</span>)}</div></a>
