@@ -1,0 +1,14 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/home/Hero.astro';
+import ComingSoon from '../components/home/ComingSoon.astro';
+import '../styles/home.css';
+---
+<BaseLayout home>
+  <section class="home-screen home-hero" id="home" data-screen aria-label="Introduction">
+    <Hero />
+    <a class="scroll-cue" href="#next">SCROLL <span aria-hidden="true">↓</span></a>
+  </section>
+  <ComingSoon />
+</BaseLayout>
+<script>import '../scripts/home/scroll.ts';</script>

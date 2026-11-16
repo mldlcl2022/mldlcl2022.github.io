@@ -1,0 +1,17 @@
+---
+import { site, profile } from '../../data/site';
+const active = (href: string) => href === '/' ? Astro.url.pathname === '/' : Astro.url.pathname.startsWith(href);
+---
+<header>
+ <a class="brand" href="/" aria-label="Chan Lee home">Per Aspera Ad Astra</a>
+ <nav aria-label="Main navigation">
+   {site.nav.map(n => {
+     const href = n.href || profile[n.profile as keyof typeof profile];
+     const external = /^https?:\/\//.test(href ?? '');
+     return href
+       ? <a href={href} target={external ? '_blank' : undefined} rel={external ? 'noopener noreferrer' : undefined} class:list={[{active:active(href)}]} aria-current={active(href)?'page':undefined}>{n.label}</a>
+       : <button data-link={n.profile}>{n.label}</button>;
+   })}
+ </nav>
+ <div class="languages" aria-label="Language"><button data-lang="ko" aria-pressed="true">KO</button><span>/</span><button data-lang="en" aria-pressed="false">EN</button></div>
+</header>

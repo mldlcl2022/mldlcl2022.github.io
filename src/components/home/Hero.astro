@@ -1,0 +1,21 @@
+---
+import PointerIcon from '../ui/PointerIcon.astro';
+import { profile } from '../../data/site';
+---
+
+    <section class="intro" aria-labelledby="name">
+      <h1 id="name"><span id="display-name">Chan Lee</span></h1>
+      <p class="lead" data-i18n="lead">AI Researcher</p>
+      <div class="socials" aria-label="Profile links">
+        <button data-link="cv">CV <PointerIcon /></button>
+        <a href={profile.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn <PointerIcon /></a>
+        <a href="https://github.com/mldlcl2022" target="_blank" rel="noopener noreferrer">GitHub <PointerIcon /></a>
+      </div>
+    </section>
+    <section class="visual" aria-label="Interactive matrix visualization">
+      <canvas id="matrix" role="img" aria-label="Green code particles morph between a brain, globe and helix in three-dimensional space"></canvas>
+      <div class="visual-bottom"><div><span class="small-label">CURRENT CONSTRUCT</span><span id="construct">01 — NEURAL FORM</span></div><button id="motion" aria-pressed="false" data-i18n="pause">일시정지 Ⅱ</button></div>
+      <div class="constructs" aria-label="Choose shape"><button data-shape="0" aria-pressed="true">01 <span>BRAIN</span></button><button data-shape="1" aria-pressed="false">02 <span>EARTH</span></button><button data-shape="2" aria-pressed="false">03 <span>HELIX</span></button></div>
+    </section>
+
+<script>import '../../scripts/home/hero-animation.js';</script>

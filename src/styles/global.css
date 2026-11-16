@@ -1,0 +1,135 @@
+@import "./header.css";
+@import "./footer.css";
+@import "./content.css";
+
+/* Keep page width unchanged when navigating between long and short pages. */
+html {
+  scrollbar-gutter: stable;
+}
+@supports not (scrollbar-gutter: stable) {
+  html {
+    overflow-y: scroll;
+  }
+}
+
+@font-face {
+  font-family: "Disket Mono";
+  src: url("/fonts/Disket-Mono-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Disket Mono";
+  src: url("/fonts/Disket-Mono-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+:root {
+  color-scheme: dark;
+  --bg: #050807;
+  --green: #00cc33;
+  --bright: #00ff41;
+  --muted: #079e2c;
+  --line: #103c18;
+  --font-ui: "Disket Mono", "Malgun Gothic", "맑은 고딕", monospace;
+  font-family: var(--font-ui);
+  background: var(--bg);
+  color: var(--green);
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  min-height: 100svh;
+  background:
+    radial-gradient(ellipse at 78% 47%, #0a1911 0, transparent 50%), var(--bg);
+}
+html[lang] body {
+  font-family: var(--font-ui);
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--bright);
+  outline-offset: 7px;
+}
+h1 {
+  font-family: var(--font-ui);
+  font-size: clamp(54px, 6.7vw, 106px);
+  font-weight: 700;
+  letter-spacing: -2px;
+  line-height: 1.08;
+  margin: 0 0 30px;
+  color: #fff;
+  white-space: nowrap;
+}
+html[lang] .article-title {
+  font-family: var(--font-ui);
+}
+.cursor {
+  font-size: 0.75em;
+  color: var(--bright);
+  animation: blink 1.5s steps(2, start) infinite;
+}
+#notice {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #0e2115;
+  border: 1px solid #376b46;
+  color: #00ff41;
+  padding: 16px 24px;
+  font-size: 12px;
+  z-index: 3;
+  max-width: 90%;
+  text-align: center;
+}
+.skip {
+  position: fixed;
+  left: 15px;
+  top: -80px;
+  padding: 15px;
+  background: #183b22;
+  z-index: 5;
+}
+.skip:focus {
+  top: 10px;
+}
+html[lang="ko"] [data-i18n="motto"] {
+  font-family: "Malgun Gothic", "맑은 고딕", sans-serif;
+  font-weight: 700;
+}
+@keyframes blink {
+  to {
+    visibility: hidden;
+  }
+}
+@media (max-width: 760px) {
+  h1 {
+    font-size: clamp(42px, 12vw, 68px);
+    margin-bottom: 22px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cursor {
+    animation: none;
+  }
+}
