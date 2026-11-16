@@ -1,6 +1,7 @@
 ---
 import PointerIcon from '../ui/PointerIcon.astro';
-import { profile } from '../../data/site';
+import { profile, site } from '../../data/site';
+const techBlogUrl = site.nav.find(item => item.label === 'TECH BLOG')!.href;
 ---
 
     <section class="intro" aria-labelledby="name">
@@ -10,6 +11,10 @@ import { profile } from '../../data/site';
         <button data-link="cv">CV <PointerIcon /></button>
         <a href={profile.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn <PointerIcon /></a>
         <a href="https://github.com/mldlcl2022" target="_blank" rel="noopener noreferrer">GitHub <PointerIcon /></a>
+      </div>
+      <div class="blog-intro">
+        <p><span data-i18n="techBlogIntro">AI, SW 기술이 궁금하신 분은 </span><a href={techBlogUrl}>TECH BLOG</a><span data-i18n="techBlogOutro">를 방문해주세요 :D</span></p>
+        <p><span data-i18n="lifeBlogIntro">제 일상이 궁금하시다면 </span><a href={profile.life} target="_blank" rel="noopener noreferrer">LIFE BLOG</a><span data-i18n="lifeBlogOutro">를 방문해주세요 :)</span></p>
       </div>
     </section>
     <section class="visual" aria-label="Interactive matrix visualization">

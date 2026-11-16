@@ -1,4 +1,5 @@
 import { profile, countryEndpoint, copy } from "../data/site";
+import "./visitors.js";
 let language = "ko",
   manualLanguage = false;
 function readPreference() {
@@ -77,4 +78,5 @@ document.querySelectorAll("[data-link]").forEach((el) =>
   }),
 );
 
-document.querySelector("#year").textContent = new Date().getFullYear();
+const year = document.querySelector("#year");
+if (year) year.textContent = new Date().getFullYear();

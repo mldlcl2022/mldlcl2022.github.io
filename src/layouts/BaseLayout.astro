@@ -19,4 +19,4 @@ const {title, description=site.description, home=false, contentTheme='dark'} = A
       }, 6500);
     }
   </script>}</head>
-<body>{home && <div id="boot-screen"><canvas id="boot-rain" aria-hidden="true"></canvas><button id="boot-skip">건너뛰기 / Skip ↗</button></div>}<a class="skip" href="#main">본문으로 이동</a><Header/><main id="main" class={home?'home':'content-page'}><slot/></main><Footer/><div id="notice" role="status" hidden></div><script>import '../scripts/site.js';</script></body></html>
+<body>{home && <div id="boot-screen"><canvas id="boot-rain" aria-hidden="true"></canvas></div>}<a class="skip" href="#main">본문으로 이동</a><Header/><main id="main" class={home?'home':'content-page'}><slot/></main><Footer compact={contentTheme === 'light'}/><div id="notice" role="status" hidden></div><script>import '../scripts/site.js';</script></body></html>

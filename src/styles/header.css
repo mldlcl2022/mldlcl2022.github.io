@@ -15,7 +15,7 @@ header {
 header .brand {
   grid-column: 1;
   grid-row: 1;
-  font-family: Consolas, "Cascadia Mono", monospace;
+  font-family: Consolas, "Cascadia Mono", var(--font-ko);
   font-size: 14px;
   letter-spacing: 0;
   white-space: nowrap;

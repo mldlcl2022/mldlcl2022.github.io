@@ -1,10 +1,10 @@
 .article-title {
-  font-family: "Malgun Gothic", sans-serif;
+  font-family: var(--font-ko);
 }
 .prose {
   max-width: 760px;
   margin-top: 44px;
-  font-family: "Malgun Gothic", sans-serif;
+  font-family: var(--font-ko);
   font-size: 17px;
   line-height: 1.95;
   color: #c7ddcf;
@@ -26,6 +26,10 @@
   border: 1px solid var(--line);
   border-radius: 6px;
   font-size: 14px;
+}
+.prose pre,
+.prose code {
+  font-family: Consolas, "Cascadia Mono", var(--font-ko);
 }
 .prose :not(pre) > code {
   background: #102719;

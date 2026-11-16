@@ -4,21 +4,21 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  align-self: center;
+  align-self: start;
   min-width: 0;
-  gap: 4px;
+  gap: 0;
   padding-top: 0;
-  transform: translateY(-44px);
 }
 .intro h1 {
   margin-bottom: 0;
+  line-height: 1;
 }
 #display-name {
   color: var(--green);
   text-transform: uppercase;
 }
 html[lang] .intro .lead {
-  font-family: Consolas, "Cascadia Mono", monospace;
+  font-family: Consolas, "Cascadia Mono", var(--font-ko);
   font-size: var(--intro-detail-size);
   font-weight: 700;
   line-height: 1.65;
@@ -27,14 +27,37 @@ html[lang] .intro .lead {
   white-space: normal;
   margin: 0 0 0 6px;
 }
+.socials,
+.blog-intro {
+  font-family: Consolas, "Cascadia Mono", var(--font-ko);
+  font-size: 14px;
+  line-height: normal;
+}
+.blog-intro {
+  display: grid;
+  gap: 12px;
+  margin: 60px 0 0 6px;
+}
+.blog-intro p {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+.blog-intro a {
+  font-weight: 700;
+  font-size: 15px;
+  white-space: nowrap;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+.blog-intro a:hover {
+  color: var(--bright);
+}
 .socials {
   display: flex;
   flex-wrap: wrap;
   gap: 24px;
   margin: 20px 0 0 6px;
-  font-family: Consolas, "Cascadia Mono", monospace;
-  font-size: 14px;
-  line-height: normal;
 }
 .socials button {
   padding: 0;
@@ -97,7 +120,7 @@ html[lang] .intro .lead {
   padding: 10px;
 }
 html[lang="ko"] #motion {
-  font-family: "Malgun Gothic", "맑은 고딕", sans-serif;
+  font-family: var(--font-ko);
   font-weight: 700;
 }
 .constructs {

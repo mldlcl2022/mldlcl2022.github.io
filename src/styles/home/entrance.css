@@ -13,19 +13,6 @@
   height: 100%;
   display: block;
 }
-#boot-skip {
-  position: absolute;
-  right: 5%;
-  bottom: 28px;
-  padding: 12px 15px;
-  border: 1px solid #224d30;
-  background: #020805e6;
-  font-size: 10px;
-  color: #00cc33;
-  pointer-events: auto;
-  opacity: 0;
-  animation: boot-skip-in 0.3s 0.6s forwards;
-}
 .booting {
   background: #000;
 }
@@ -55,9 +42,6 @@
   transform: none;
   animation: none;
 }
-.booting #boot-screen:focus-within {
-  pointer-events: auto;
-}
 @keyframes boot-materialize {
   0% {
     opacity: 0;
@@ -74,11 +58,6 @@
     clip-path: inset(0);
     filter: none;
     transform: none;
-  }
-}
-@keyframes boot-skip-in {
-  to {
-    opacity: 1;
   }
 }
 @media (prefers-reduced-motion: reduce) {

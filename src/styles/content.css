@@ -22,7 +22,7 @@ main.content-page {
   max-width: 680px;
   line-height: 1.9;
   color: var(--green);
-  font-family: "Malgun Gothic", sans-serif;
+  font-family: var(--font-ko);
 }
 .card-grid {
   display: grid;
@@ -50,7 +50,7 @@ main.content-page {
   overflow-wrap: anywhere;
 }
 .entry-card p {
-  font-family: "Malgun Gothic", sans-serif;
+  font-family: var(--font-ko);
   font-size: 15px;
   line-height: 1.9;
 }
@@ -78,7 +78,7 @@ main.content-page {
   margin-top: 36px;
   padding: 32px;
   border: 1px dashed var(--line);
-  font-family: "Malgun Gothic", sans-serif;
+  font-family: var(--font-ko);
 }
 .back-link {
   display: inline-block;

@@ -1,0 +1,17 @@
+{
+  "name": "chan-blog-visitors",
+  "account_id": "1b7712dc00c85bb88173d4a7d09e1eab",
+  "main": "worker.mjs",
+  "compatibility_date": "2026-11-16",
+  "vars": {
+    "ALLOWED_ORIGIN": "https://mldlcl2022.github.io",
+    "PREVIEW_ORIGIN": "http://127.0.0.1:4330"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "chan-blog-visitors",
+      "database_id": "8b46fd42-5b55-4927-8ff3-87eb44c00c44"
+    }
+  ]
+}
