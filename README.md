@@ -28,12 +28,13 @@ pnpm preview
 - 프로젝트 소개: `src/content/projects/`
 
 글은 Markdown에 `title`, `description`, `date`, `tags`, `draft`를 작성합니다.
+블로그 작성 시간은 `time: "14:30"`처럼 한국 시간의 24시간 형식으로 추가합니다. 시간이 없는 기존 글은 목록에서 `시간 미기록`으로 표시합니다. 목록의 미리보기는 본문 앞부분을 두 줄까지 표시합니다.
 `draft: true`는 목록과 상세 페이지에서 제외됩니다. 프로젝트에는 `github` 링크를 추가할 수 있습니다.
 현재 예시 콘텐츠는 교체하거나 삭제할 수 있습니다.
 
 ## 폰트와 언어
 
-이름과 메뉴는 Disket Mono를 사용합니다. 제목 `Per Aspera Ad Astra`와 `AI Researcher`, 프로필 링크는 대소문자가 구분되는 Consolas 계열을 사용합니다. 폰트 라이선스는 `public/fonts/`에 보존합니다.
+한글은 프로젝트에 포함한 Pretendard Variable 1.3.9를 사용합니다. 이름과 메뉴는 Disket Mono를 사용합니다. 제목 `Per Aspera Ad Astra`와 `AI Researcher`, 프로필 링크는 대소문자가 구분되는 Consolas 계열을 사용합니다. 영문 전용 폰트에서도 한글은 Pretendard로 표시합니다. 폰트와 라이선스는 `public/fonts/`에 보존합니다.
 
 KO/EN은 공통 문구와 홈 소개에 적용되며 Markdown 본문은 작성한 언어로 표시합니다.
 첫 언어 감지에는 `api.country.is`를 사용하며 방문자 IP가 전달됩니다.
@@ -41,6 +42,8 @@ KO/EN은 공통 문구와 홈 소개에 적용되며 Markdown 본문은 작성�
 ABOUT은 Notion, LinkedIn과 Life Blog는 개인 프로필로 연결됩니다. 빈 CV·Service 링크는 준비 중 안내를 표시합니다.
 
 ## 배포
+
+방문자 수 박스와 실제 집계 서버 연결 방법은 [방문자 집계 연결](docs/visitor-counter.md)을 참고합니다.
 
 GitHub Settings → Pages → Source를 GitHub Actions로 설정합니다.
 `main`에 push하면 `.github/workflows/deploy.yml`이 검사·빌드 후 `dist/`를 배포합니다.

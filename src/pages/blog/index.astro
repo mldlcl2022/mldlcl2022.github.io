@@ -1,7 +1,75 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import VisitorStats from '../../components/blog/VisitorStats.astro';
+import { published, formatDate, excerpt } from '../../lib/content';
 import '../../styles/light.css';
+import '../../styles/blog.css';
+const posts = await published('blog');
+const tags = [...new Set(posts.flatMap(post => post.data.tags))].sort((a, b) => a.localeCompare(b, 'ko'));
 ---
 <BaseLayout title="Tech Blog" contentTheme="light">
-  <h1 class="blog-coming-soon">Coming Soon</h1>
+  <div class="blog-layout">
+    <section class="blog-feed" aria-label="글 목록">
+      <div class="blog-heading">
+        <p class="blog-count" aria-live="polite">전체 <span id="post-count">{posts.length}</span>개의 글</p>
+      </div>
+      <div class="blog-posts">
+        {posts.map(post => (
+          <article class="blog-post" data-post data-title={post.data.title} data-content={`${post.data.description} ${post.body ?? ''}`} data-tags={JSON.stringify(post.data.tags)}>
+            <h2><a href={`/blog/${post.id}/`}>{post.data.title}</a></h2>
+            <p class="blog-excerpt">{excerpt(post.body ?? '') || post.data.description}</p>
+            <div class="blog-post-meta"><time datetime={post.data.time ? `${formatDate(post.data.date)}T${post.data.time}:00+09:00` : formatDate(post.data.date)}>{formatDate(post.data.date)}{post.data.time ? ` · ${post.data.time}` : ' · 시간 미기록'}</time></div>
+          </article>
+        ))}
+      </div>
+      <p class="blog-empty" id="blog-empty" hidden={posts.length > 0}>조건에 맞는 글이 없습니다.</p>
+    </section>
+    <aside class="blog-sidebar" aria-label="블로그 메뉴">
+      <form class="blog-search" role="search">
+        <label for="blog-query"><svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/></svg>검색</label>
+        <div class="blog-search-field"><input type="search" id="blog-query" name="q" placeholder="검색어를 입력 후 엔터를 누르세요."/></div>
+      </form>
+      <nav class="blog-menu" aria-labelledby="blog-menu-title">
+        <h2 id="blog-menu-title">전체 카테고리</h2>
+        <a class="blog-menu-all" href="/blog/" data-filter="" aria-current="page"><span>전체 글</span><span>{posts.length}</span></a>
+        <ul>{tags.map(tag => <li><a href={`?tag=${encodeURIComponent(tag)}`} data-filter={tag}><span>{tag}</span><span>{posts.filter(post => post.data.tags.includes(tag)).length}</span></a></li>)}</ul>
+      </nav>
+      <VisitorStats />
+    </aside>
+  </div>
 </BaseLayout>
+<script>
+  const query = document.querySelector<HTMLInputElement>('#blog-query')!;
+  const filters = [...document.querySelectorAll<HTMLAnchorElement>('[data-filter]')];
+  const posts = [...document.querySelectorAll<HTMLElement>('[data-post]')];
+  const applyFilters = () => {
+    const params = new URLSearchParams(location.search);
+    const tag = params.get('tag') ?? '';
+    const term = (params.get('q') ?? '').trim().toLocaleLowerCase();
+    query.value = params.get('q') ?? '';
+    let count = 0;
+    for (const post of posts) {
+      const tags: string[] = JSON.parse(post.dataset.tags!);
+      const text = `${post.dataset.title} ${post.dataset.content}`.toLocaleLowerCase();
+      post.hidden = !!((tag && !tags.includes(tag)) || (term && !text.includes(term)));
+      if (!post.hidden) count++;
+    }
+    for (const link of filters) {
+      if (link.dataset.filter === tag) link.setAttribute('aria-current', 'page');
+      else link.removeAttribute('aria-current');
+    }
+    document.querySelector('#post-count')!.textContent = String(count);
+    document.querySelector<HTMLElement>('#blog-empty')!.hidden = count > 0;
+  };
+  document.querySelector('.blog-search')!.addEventListener('submit', event => {
+    event.preventDefault();
+    const params = new URLSearchParams(location.search);
+    params.delete('tag');
+    if (query.value.trim()) params.set('q', query.value.trim());
+    else params.delete('q');
+    history.pushState(null, '', `/blog/${params.size ? `?${params}` : ''}`);
+    applyFilters();
+  });
+  addEventListener('popstate', applyFilters);
+  applyFilters();
+</script>

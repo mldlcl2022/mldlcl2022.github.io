@@ -21,7 +21,10 @@ jobs:
       - run: npm install --global pnpm@11.25.0
       - run: pnpm install --frozen-lockfile
       - run: pnpm check
+      - run: node --test services/visitor-counter/worker.test.mjs
       - run: pnpm build
+        env:
+          PUBLIC_VISITOR_COUNTER_URL: ${{ vars.PUBLIC_VISITOR_COUNTER_URL }}
       - run: pnpm verify:build
       - uses: actions/upload-pages-artifact@v3
         with:

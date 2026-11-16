@@ -20,6 +20,7 @@ const observer = new ResizeObserver(measure);
 if (header) observer.observe(header);
 if (footer) observer.observe(footer);
 measure();
+root.classList.add("home-scroll-ready");
 
 const stops = () => {
   const height = innerHeight - (header?.offsetHeight ?? 50);

@@ -7,7 +7,6 @@ export function startEntrance() {
   }
   const canvas = document.querySelector("#boot-rain");
   const ctx = canvas.getContext("2d");
-  const skip = document.querySelector("#boot-skip");
   const motion = matchMedia("(prefers-reduced-motion: reduce)");
   const pieces = [
     ...document.querySelectorAll("header, .intro > *, .visual, footer"),
@@ -81,16 +80,9 @@ export function startEntrance() {
       el.style.removeProperty("--reveal-delay");
       el.removeEventListener("animationend", onReveal);
     });
-    const restoreFocus = document.activeElement === skip;
     overlay.remove();
     removeEventListener("resize", resize);
-    removeEventListener("keydown", onKey);
     motion.removeEventListener("change", onMotion);
-    if (restoreFocus)
-      document.querySelector(".brand").focus({ preventScroll: true });
-  }
-  function onKey(event) {
-    if (event.key === "Escape") finish();
   }
   function onMotion(event) {
     if (event.matches) finish();
@@ -124,8 +116,6 @@ export function startEntrance() {
     else request = requestAnimationFrame(draw);
   }
   const safety = setTimeout(finish, 5000);
-  skip.addEventListener("click", finish);
-  addEventListener("keydown", onKey);
   addEventListener("resize", resize);
   motion.addEventListener("change", onMotion);
   if (!ctx) {

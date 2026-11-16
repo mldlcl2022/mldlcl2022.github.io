@@ -26,6 +26,13 @@ html {
   font-style: normal;
   font-display: swap;
 }
+@font-face {
+  font-family: "Pretendard Variable";
+  src: url("/fonts/PretendardVariable.woff2") format("woff2");
+  font-weight: 45 920;
+  font-style: normal;
+  font-display: swap;
+}
 :root {
   color-scheme: dark;
   --bg: #050807;
@@ -33,7 +40,8 @@ html {
   --bright: #00ff41;
   --muted: #079e2c;
   --line: #103c18;
-  --font-ui: "Disket Mono", "Malgun Gothic", "맑은 고딕", monospace;
+  --font-ko: "Pretendard Variable", sans-serif;
+  --font-ui: "Disket Mono", var(--font-ko);
   font-family: var(--font-ui);
   background: var(--bg);
   color: var(--green);
@@ -114,7 +122,7 @@ html[lang] .article-title {
   top: 10px;
 }
 html[lang="ko"] [data-i18n="motto"] {
-  font-family: "Malgun Gothic", "맑은 고딕", sans-serif;
+  font-family: var(--font-ko);
   font-weight: 700;
 }
 @keyframes blink {

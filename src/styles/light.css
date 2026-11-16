@@ -10,29 +10,16 @@
 }
 
 .light-theme main.content-page {
-  display: grid;
-  place-items: center;
+  display: block;
   flex: 1;
   width: 100%;
   max-width: none;
   min-height: 0;
   margin: 0;
-  padding: 100px 5%;
+  padding: 64px 5% 100px;
   color-scheme: light;
   color: #17251c;
-  background:
-    radial-gradient(ellipse at 80% 20%, #eaf5ee 0, transparent 55%),
-    #f8faf9;
-}
-
-.light-theme .content-page .blog-coming-soon {
-  margin: 0;
-  font-family: Consolas, "Cascadia Mono", monospace;
-  font-size: clamp(40px, 6vw, 88px);
-  line-height: 1.2;
-  letter-spacing: -2px;
-  color: #17251c;
-  text-align: center;
+  background: #f8faf9;
 }
 
 .light-theme footer {
@@ -49,9 +36,14 @@
 .light-theme footer .footer-star {
   color: #238344;
 }
+.light-theme footer .footer-credit {
+  color: #244e33;
+  font: 700 14px/1.6 Consolas, "Cascadia Mono", var(--font-ko);
+  letter-spacing: 0.3px;
+}
 
 @media (max-width: 760px) {
   .light-theme main.content-page {
-    padding-block: 80px;
+    padding-block: 36px 64px;
   }
 }
