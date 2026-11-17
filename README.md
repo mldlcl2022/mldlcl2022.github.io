@@ -10,6 +10,7 @@ Node.js 24 LTS와 pnpm 11을 사용합니다.
 pnpm install --frozen-lockfile
 pnpm dev
 pnpm check
+pnpm test:entrance
 pnpm build
 pnpm verify:build
 pnpm preview
@@ -21,6 +22,7 @@ pnpm preview
 ## 수정 안내
 
 - [폴더 구조와 수정 위치](docs/structure.md)
+- [2일차-2 인수인계 및 다음 작업 명세](docs/handoff-2026-11-17-day2-2.md)
 - 소개·메뉴·외부 링크: `src/data/site.ts`
 - 홈 화면: `src/components/home/`, `src/styles/home.css`, `src/styles/home/`
 - 홈 동작: `src/scripts/home/`
@@ -31,6 +33,8 @@ pnpm preview
 블로그 작성 시간은 `time: "14:30"`처럼 한국 시간의 24시간 형식으로 추가합니다. 시간이 없는 기존 글은 목록에서 `시간 미기록`으로 표시합니다. 목록의 미리보기는 본문 앞부분을 두 줄까지 표시합니다.
 `draft: true`는 목록과 상세 페이지에서 제외됩니다. 프로젝트에는 `github` 링크를 추가할 수 있습니다.
 현재 예시 콘텐츠는 교체하거나 삭제할 수 있습니다.
+
+HOME의 문자 비 오프닝은 페이지를 열 때마다 재생하며, 운영체제의 동작 줄이기 설정이나 이전 재생 기록으로 생략하지 않습니다.
 
 ## 폰트와 언어
 

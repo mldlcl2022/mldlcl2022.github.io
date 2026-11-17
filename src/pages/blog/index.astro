@@ -9,10 +9,14 @@ const tags = [...new Set(posts.flatMap(post => post.data.tags))].sort((a, b) => 
 ---
 <BaseLayout title="Tech Blog" contentTheme="light">
   <div class="blog-layout">
+    <div class="blog-heading">
+      <p class="blog-count" aria-live="polite">전체 <span id="post-count">{posts.length}</span>개의 글</p>
+    </div>
+    <form class="blog-search" role="search">
+      <label for="blog-query"><svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/></svg>검색</label>
+      <div class="blog-search-field"><input type="search" id="blog-query" name="q" placeholder="검색어를 입력 후 엔터를 누르세요."/></div>
+    </form>
     <section class="blog-feed" aria-label="글 목록">
-      <div class="blog-heading">
-        <p class="blog-count" aria-live="polite">전체 <span id="post-count">{posts.length}</span>개의 글</p>
-      </div>
       <div class="blog-posts">
         {posts.map(post => (
           <article class="blog-post" data-post data-title={post.data.title} data-content={`${post.data.description} ${post.body ?? ''}`} data-tags={JSON.stringify(post.data.tags)}>
@@ -25,10 +29,6 @@ const tags = [...new Set(posts.flatMap(post => post.data.tags))].sort((a, b) => 
       <p class="blog-empty" id="blog-empty" hidden={posts.length > 0}>조건에 맞는 글이 없습니다.</p>
     </section>
     <aside class="blog-sidebar" aria-label="블로그 메뉴">
-      <form class="blog-search" role="search">
-        <label for="blog-query"><svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/></svg>검색</label>
-        <div class="blog-search-field"><input type="search" id="blog-query" name="q" placeholder="검색어를 입력 후 엔터를 누르세요."/></div>
-      </form>
       <nav class="blog-menu" aria-labelledby="blog-menu-title">
         <h2 id="blog-menu-title">전체 카테고리</h2>
         <a class="blog-menu-all" href="/blog/" data-filter="" aria-current="page"><span>전체 글</span><span>{posts.length}</span></a>

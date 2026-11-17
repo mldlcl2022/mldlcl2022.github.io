@@ -38,8 +38,6 @@
 }
 .light-theme footer .footer-credit {
   color: #244e33;
-  font: 700 14px/1.6 Consolas, "Cascadia Mono", var(--font-ko);
-  letter-spacing: 0.3px;
 }
 
 @media (max-width: 760px) {

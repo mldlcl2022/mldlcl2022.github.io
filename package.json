@@ -12,6 +12,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check",
+    "test:entrance": "node --test scripts/entrance.test.mjs",
     "verify:build": "node scripts/verify-build.mjs"
   },
   "dependencies": {
