@@ -8,15 +8,10 @@ const {title, description=site.description, home=false, contentTheme='dark'} = A
 ---
 <!doctype html><html lang="ko" class:list={[{ "home-scroll": home, "light-theme": contentTheme === 'light' }]}><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="theme-color" content="#050807"/><meta name="description" content={description}/><title>{title ? title+' · '+site.name : site.title}</title><link rel="canonical" href={new URL(Astro.url.pathname,site.url)}/><link rel="icon" type="image/svg+xml" href="/favicon.svg"/><meta property="og:title" content={title ?? site.title}/><meta property="og:description" content={description}/><meta property="og:type" content="website"/>{home && <script is:inline>
     // Start before the first paint; a failed module must never hide the page forever.
-    let entranceSeen = false;
-    try { entranceSeen = sessionStorage.getItem('entrance-complete') === '1'; } catch {}
-    if (!entranceSeen && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      document.documentElement.classList.add('booting');
-      window.bootFallback = setTimeout(() => {
-        document.documentElement.classList.remove('booting');
-        document.querySelector('#boot-screen')?.remove();
-        try { sessionStorage.setItem('entrance-complete', '1'); } catch {}
-      }, 6500);
-    }
+    document.documentElement.classList.add('booting');
+    window.bootFallback = setTimeout(() => {
+      document.documentElement.classList.remove('booting');
+      document.querySelector('#boot-screen')?.remove();
+    }, 6500);
   </script>}</head>
-<body>{home && <div id="boot-screen"><canvas id="boot-rain" aria-hidden="true"></canvas></div>}<a class="skip" href="#main">본문으로 이동</a><Header/><main id="main" class={home?'home':'content-page'}><slot/></main><Footer compact={contentTheme === 'light'}/><div id="notice" role="status" hidden></div><script>import '../scripts/site.js';</script></body></html>
+<body>{home && <div id="boot-screen"><canvas id="boot-rain" aria-hidden="true"></canvas></div>}<a class="skip" href="#main">본문으로 이동</a><Header/><main id="main" class={home?'home':'content-page'}><slot/></main><Footer compact={home || contentTheme === 'light'}/><div id="notice" role="status" hidden></div><script>import '../scripts/site.js';</script></body></html>

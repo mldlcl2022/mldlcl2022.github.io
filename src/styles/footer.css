@@ -15,6 +15,11 @@ footer {
   margin-left: 12px;
   color: #00cc33;
 }
+.footer-credit {
+  color: var(--green);
+  font: 700 14px/1.6 Consolas, "Cascadia Mono", var(--font-ko);
+  letter-spacing: 0.3px;
+}
 @media (min-width: 1600px) {
   footer {
     max-width: 1440px;

@@ -7,7 +7,6 @@ export function startEntrance() {
   }
   const canvas = document.querySelector("#boot-rain");
   const ctx = canvas.getContext("2d");
-  const motion = matchMedia("(prefers-reduced-motion: reduce)");
   const pieces = [
     ...document.querySelectorAll("header, .intro > *, .visual, footer"),
   ];
@@ -71,9 +70,6 @@ export function startEntrance() {
     clearTimeout(window.bootFallback);
     clearTimeout(safety);
     root.classList.remove("booting");
-    try {
-      sessionStorage.setItem("entrance-complete", "1");
-    } catch {}
     regions.forEach((el) => (el.inert = false));
     pieces.forEach((el) => {
       el.classList.remove("boot-piece", "boot-revealed");
@@ -82,10 +78,6 @@ export function startEntrance() {
     });
     overlay.remove();
     removeEventListener("resize", resize);
-    motion.removeEventListener("change", onMotion);
-  }
-  function onMotion(event) {
-    if (event.matches) finish();
   }
   function draw(now) {
     if (finished) return;
@@ -117,7 +109,6 @@ export function startEntrance() {
   }
   const safety = setTimeout(finish, 5000);
   addEventListener("resize", resize);
-  motion.addEventListener("change", onMotion);
   if (!ctx) {
     finish();
     return;

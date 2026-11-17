@@ -60,38 +60,3 @@
     transform: none;
   }
 }
-@media (prefers-reduced-motion: reduce) {
-  .booting #boot-screen {
-    display: none;
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .booting header {
-    opacity: 1;
-    animation: none;
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .booting .intro > * {
-    opacity: 1;
-    animation: none;
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .booting .visual {
-    opacity: 1;
-    animation: none;
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .booting footer {
-    opacity: 1;
-    animation: none;
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .booting body {
-    overflow: auto;
-    background: var(--bg);
-  }
-}
