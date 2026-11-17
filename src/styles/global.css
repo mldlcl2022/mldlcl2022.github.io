@@ -55,9 +55,6 @@ body {
   background:
     radial-gradient(ellipse at 78% 47%, #0a1911 0, transparent 50%), var(--bg);
 }
-html[lang] body {
-  font-family: var(--font-ui);
-}
 a {
   color: inherit;
   text-decoration: none;
@@ -88,7 +85,7 @@ h1 {
   color: #fff;
   white-space: nowrap;
 }
-html[lang] .article-title {
+.article-title {
   font-family: var(--font-ui);
 }
 .cursor {
@@ -121,7 +118,7 @@ html[lang] .article-title {
 .skip:focus {
   top: 10px;
 }
-html[lang="ko"] [data-i18n="motto"] {
+.footer-motto {
   font-family: var(--font-ko);
   font-weight: 700;
 }

@@ -1,29 +1,29 @@
 import { startEntrance } from "./entrance.js";
-import { copy } from "../../data/site";
+import { messages } from "../../data/site";
 startEntrance();
-let paused = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const reduced = matchMedia("(prefers-reduced-motion: reduce)");
+let paused = reduced.matches;
+const motionButton = document.querySelector("#motion");
+const constructLabel = document.querySelector("#construct");
+const shapeButtons = [...document.querySelectorAll("[data-shape]")];
 function updateMotion() {
-  const el = document.querySelector("#motion");
-  el.textContent =
-    copy[document.documentElement.lang === "en" ? "en" : "ko"][
-      paused ? "play" : "pause"
-    ];
-  el.setAttribute("aria-pressed", String(paused));
+  motionButton.textContent = messages[paused ? "play" : "pause"];
+  motionButton.setAttribute("aria-pressed", String(paused));
 }
 updateMotion();
-document.addEventListener("site:language", updateMotion);
-document.querySelector("#motion").addEventListener("click", () => {
+motionButton.addEventListener("click", () => {
   paused = !paused;
   updateMotion();
   render();
+  scheduleFrame();
 });
 const canvas = document.querySelector("#matrix"),
   ctx = canvas.getContext("2d");
-const reduced = matchMedia("(prefers-reduced-motion: reduce)");
 reduced.addEventListener("change", (e) => {
   paused = e.matches;
   updateMotion();
   render();
+  scheduleFrame();
 });
 const glyphs = "01アイウエオカキクケコサシスセソ<>:∑";
 const count = innerWidth < 760 ? 1000 : 1800;
@@ -34,7 +34,8 @@ let width = 1,
   selected = 0,
   cycleStart = 0,
   pointerX = 0,
-  pointerY = 0;
+  pointerY = 0,
+  frameRequest = 0;
 const names = ["01 — NEURAL FORM", "02 — WORLD MODEL", "03 — CODE OF LIFE"];
 // Deterministic point sampling keeps each character's identity during morphing.
 let seed = 71;
@@ -175,22 +176,18 @@ function resize() {
 function choose(index) {
   selected = index;
   cycleStart = time;
-  document.querySelector("#construct").textContent = names[index];
-  document
-    .querySelectorAll("[data-shape]")
-    .forEach((el) =>
-      el.setAttribute(
-        "aria-pressed",
-        String(Number(el.dataset.shape) === index),
-      ),
-    );
+  constructLabel.textContent = names[index];
+  shapeButtons.forEach((el) =>
+    el.setAttribute(
+      "aria-pressed",
+      String(Number(el.dataset.shape) === index),
+    ),
+  );
   render();
 }
-document
-  .querySelectorAll("[data-shape]")
-  .forEach((el) =>
-    el.addEventListener("click", () => choose(Number(el.dataset.shape))),
-  );
+shapeButtons.forEach((el) =>
+  el.addEventListener("click", () => choose(Number(el.dataset.shape))),
+);
 canvas.addEventListener("pointermove", (e) => {
   const r = canvas.getBoundingClientRect();
   pointerX = (e.clientX - r.left) / r.width - 0.5;
@@ -227,6 +224,8 @@ function render() {
   }
   const yaw = time * 0.17 + pointerX * 0.35,
     pitch = pointerY * 0.2;
+  const cosYaw = Math.cos(yaw), sinYaw = Math.sin(yaw);
+  const cosPitch = Math.cos(pitch), sinPitch = Math.sin(pitch);
   const points = particles
     .map((p, i) => {
       const a = p.forms[selected],
@@ -237,10 +236,10 @@ function render() {
       x += Math.sin(p.phase * 71) * scatter * 0.2;
       z += Math.cos(p.phase * 43) * scatter * 0.35;
       y += scatter * (((p.phase * 4 + time * p.speed) % 3) - 1.5);
-      const xx = x * Math.cos(yaw) + z * Math.sin(yaw),
-        zz = -x * Math.sin(yaw) + z * Math.cos(yaw);
-      const yy = y * Math.cos(pitch) - zz * Math.sin(pitch),
-        depth = y * Math.sin(pitch) + zz * Math.cos(pitch);
+      const xx = x * cosYaw + z * sinYaw,
+        zz = -x * sinYaw + z * cosYaw;
+      const yy = y * cosPitch - zz * sinPitch,
+        depth = y * sinPitch + zz * cosPitch;
       const perspective = 3.6 / (3.6 - depth);
       return {
         x: width * 0.5 + xx * scale * perspective,
@@ -251,9 +250,9 @@ function render() {
       };
     })
     .sort((a, b) => a.z - b.z);
+  const globeWeight =
+    selected === 1 ? 1 - blend : (selected + 1) % 3 === 1 ? blend : 0;
   for (const point of points) {
-    const globeWeight =
-      selected === 1 ? 1 - blend : (selected + 1) % 3 === 1 ? blend : 0;
     const landWeight = point.p.land ? 1 : 0.18;
     const alpha =
         Math.min(0.95, 0.18 + (point.z + 1) * 0.32) *
@@ -286,6 +285,7 @@ function render() {
   ctx.stroke();
 }
 function frame(now) {
+  frameRequest = 0;
   const dt = last ? Math.min((now - last) / 1000, 0.05) : 0;
   last = now;
   if (!paused && !document.hidden) {
@@ -293,8 +293,19 @@ function frame(now) {
     if (time - cycleStart >= 8.2) choose((selected + 1) % 3);
     render();
   }
-  requestAnimationFrame(frame);
+  scheduleFrame();
 }
+// Stop requesting frames while paused or in a background tab.
+function scheduleFrame() {
+  if (paused || document.hidden || !ctx) {
+    cancelAnimationFrame(frameRequest);
+    frameRequest = 0;
+    last = 0;
+  } else if (!frameRequest) {
+    frameRequest = requestAnimationFrame(frame);
+  }
+}
+document.addEventListener("visibilitychange", scheduleFrame);
 new ResizeObserver(resize).observe(canvas);
 resize();
-requestAnimationFrame(frame);
+scheduleFrame();

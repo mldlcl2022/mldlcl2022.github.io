@@ -6,20 +6,20 @@ const techBlogUrl = site.nav.find(item => item.label === 'TECH BLOG')!.href;
 
     <section class="intro" aria-labelledby="name">
       <h1 id="name"><span id="display-name">Chan Lee</span></h1>
-      <p class="lead" data-i18n="lead">AI Researcher</p>
+      <p class="lead">AI Researcher</p>
       <div class="socials" aria-label="Profile links">
         <button data-link="cv">CV <PointerIcon /></button>
         <a href={profile.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn <PointerIcon /></a>
-        <a href="https://github.com/mldlcl2022" target="_blank" rel="noopener noreferrer">GitHub <PointerIcon /></a>
+        <a href={profile.github} target="_blank" rel="noopener noreferrer">GitHub <PointerIcon /></a>
       </div>
       <div class="blog-intro">
-        <p><span data-i18n="techBlogIntro">AI, SW 기술이 궁금하신 분은 </span><a href={techBlogUrl}>TECH BLOG</a><span data-i18n="techBlogOutro">를 방문해주세요 :D</span></p>
-        <p><span data-i18n="lifeBlogIntro">제 일상이 궁금하시다면 </span><a href={profile.life} target="_blank" rel="noopener noreferrer">LIFE BLOG</a><span data-i18n="lifeBlogOutro">를 방문해주세요 :)</span></p>
+        <p><span>AI, SW 기술이 궁금하신 분은 </span><a href={techBlogUrl}>TECH BLOG</a><span>를 방문해주세요 :D</span></p>
+        <p><span>제 일상이 궁금하시다면 </span><a href={profile.life} target="_blank" rel="noopener noreferrer">LIFE BLOG</a><span>를 방문해주세요 :)</span></p>
       </div>
     </section>
     <section class="visual" aria-label="Interactive matrix visualization">
       <canvas id="matrix" role="img" aria-label="Green code particles morph between a brain, globe and helix in three-dimensional space"></canvas>
-      <div class="visual-bottom"><div><span class="small-label">CURRENT CONSTRUCT</span><span id="construct">01 — NEURAL FORM</span></div><button id="motion" aria-pressed="false" data-i18n="pause">일시정지 Ⅱ</button></div>
+      <div class="visual-bottom"><div><span class="small-label">CURRENT CONSTRUCT</span><span id="construct">01 — NEURAL FORM</span></div><button id="motion" aria-pressed="false">일시정지 Ⅱ</button></div>
       <div class="constructs" aria-label="Choose shape"><button data-shape="0" aria-pressed="true">01 <span>BRAIN</span></button><button data-shape="1" aria-pressed="false">02 <span>EARTH</span></button><button data-shape="2" aria-pressed="false">03 <span>HELIX</span></button></div>
     </section>
 

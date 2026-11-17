@@ -17,7 +17,7 @@
   color: var(--green);
   text-transform: uppercase;
 }
-html[lang] .intro .lead {
+.intro .lead {
   font-family: Consolas, "Cascadia Mono", var(--font-ko);
   font-size: var(--intro-detail-size);
   font-weight: 700;
@@ -118,8 +118,6 @@ html[lang] .intro .lead {
   font-size: 9px;
   color: #00bc30;
   padding: 10px;
-}
-html[lang="ko"] #motion {
   font-family: var(--font-ko);
   font-weight: 700;
 }

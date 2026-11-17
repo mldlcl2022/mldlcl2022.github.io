@@ -2,20 +2,23 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import VisitorStats from '../../components/blog/VisitorStats.astro';
 import { published, formatDate, excerpt } from '../../lib/content';
+import { blogCategories } from '../../data/blog';
 import '../../styles/light.css';
 import '../../styles/blog.css';
 const posts = await published('blog');
 const tags = [...new Set(posts.flatMap(post => post.data.tags))].sort((a, b) => a.localeCompare(b, 'ko'));
+const groupedTags = new Set(blogCategories.flatMap(category => [category.name, ...category.children]));
+const categories = [
+  ...blogCategories.filter(category => [category.name, ...category.children].some(tag => tags.includes(tag))),
+  ...tags.filter(tag => !groupedTags.has(tag)).map(name => ({ name, children: [] as string[] })),
+];
+const countPosts = (categoryTags: string[]) => posts.filter(post => post.data.tags.some(tag => categoryTags.includes(tag))).length;
 ---
 <BaseLayout title="Tech Blog" contentTheme="light">
   <div class="blog-layout">
     <div class="blog-heading">
       <p class="blog-count" aria-live="polite">전체 <span id="post-count">{posts.length}</span>개의 글</p>
     </div>
-    <form class="blog-search" role="search">
-      <label for="blog-query"><svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/></svg>검색</label>
-      <div class="blog-search-field"><input type="search" id="blog-query" name="q" placeholder="검색어를 입력 후 엔터를 누르세요."/></div>
-    </form>
     <section class="blog-feed" aria-label="글 목록">
       <div class="blog-posts">
         {posts.map(post => (
@@ -29,47 +32,22 @@ const tags = [...new Set(posts.flatMap(post => post.data.tags))].sort((a, b) => 
       <p class="blog-empty" id="blog-empty" hidden={posts.length > 0}>조건에 맞는 글이 없습니다.</p>
     </section>
     <aside class="blog-sidebar" aria-label="블로그 메뉴">
-      <nav class="blog-menu" aria-labelledby="blog-menu-title">
-        <h2 id="blog-menu-title">전체 카테고리</h2>
-        <a class="blog-menu-all" href="/blog/" data-filter="" aria-current="page"><span>전체 글</span><span>{posts.length}</span></a>
-        <ul>{tags.map(tag => <li><a href={`?tag=${encodeURIComponent(tag)}`} data-filter={tag}><span>{tag}</span><span>{posts.filter(post => post.data.tags.includes(tag)).length}</span></a></li>)}</ul>
+      <form class="blog-search" role="search">
+        <div class="blog-search-field"><svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/></svg><input type="search" id="blog-query" name="q" aria-label="검색" placeholder="검색어를 입력 후 엔터를 누르세요."/></div>
+      </form>
+      <nav class="blog-menu" aria-label="전체 카테고리">
+        <div class="blog-menu-all"><span>전체 글</span><span>{posts.length}</span></div>
+        <ul>{categories.map(category => (
+          <li>
+            <a class="blog-category-parent" href={`?tag=${encodeURIComponent(category.name)}`} data-filter={category.name} data-filter-tags={JSON.stringify([category.name, ...category.children])}><span>{category.name}</span><span>{countPosts([category.name, ...category.children])}</span></a>
+            {category.children.some(tag => tags.includes(tag)) && <ul>{category.children.filter(tag => tags.includes(tag)).map(tag => (
+              <li><a class="blog-subcategory" href={`?tag=${encodeURIComponent(tag)}`} data-filter={tag}><span>{tag}</span><span>{countPosts([tag])}</span></a></li>
+            ))}</ul>}
+          </li>
+        ))}</ul>
       </nav>
       <VisitorStats />
     </aside>
   </div>
 </BaseLayout>
-<script>
-  const query = document.querySelector<HTMLInputElement>('#blog-query')!;
-  const filters = [...document.querySelectorAll<HTMLAnchorElement>('[data-filter]')];
-  const posts = [...document.querySelectorAll<HTMLElement>('[data-post]')];
-  const applyFilters = () => {
-    const params = new URLSearchParams(location.search);
-    const tag = params.get('tag') ?? '';
-    const term = (params.get('q') ?? '').trim().toLocaleLowerCase();
-    query.value = params.get('q') ?? '';
-    let count = 0;
-    for (const post of posts) {
-      const tags: string[] = JSON.parse(post.dataset.tags!);
-      const text = `${post.dataset.title} ${post.dataset.content}`.toLocaleLowerCase();
-      post.hidden = !!((tag && !tags.includes(tag)) || (term && !text.includes(term)));
-      if (!post.hidden) count++;
-    }
-    for (const link of filters) {
-      if (link.dataset.filter === tag) link.setAttribute('aria-current', 'page');
-      else link.removeAttribute('aria-current');
-    }
-    document.querySelector('#post-count')!.textContent = String(count);
-    document.querySelector<HTMLElement>('#blog-empty')!.hidden = count > 0;
-  };
-  document.querySelector('.blog-search')!.addEventListener('submit', event => {
-    event.preventDefault();
-    const params = new URLSearchParams(location.search);
-    params.delete('tag');
-    if (query.value.trim()) params.set('q', query.value.trim());
-    else params.delete('q');
-    history.pushState(null, '', `/blog/${params.size ? `?${params}` : ''}`);
-    applyFilters();
-  });
-  addEventListener('popstate', applyFilters);
-  applyFilters();
-</script>
+<script>import '../../scripts/blog';</script>

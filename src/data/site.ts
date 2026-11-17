@@ -30,32 +30,8 @@ export const profile = {
   github: "https://github.com/mldlcl2022",
 };
 export const visitorCounterEndpoint = "https://chan-blog-visitors.mldlcl2022.workers.dev/";
-export const countryEndpoint = "https://api.country.is/";
-export const copy = {
-  ko: {
-    lead: "AI Researcher",
-    techBlogIntro: "AI, SW 기술이 궁금하신 분은 ",
-    techBlogOutro: "를 방문해주세요 :D",
-    lifeBlogIntro: "제 일상이 궁금하시다면 ",
-    lifeBlogOutro: "를 방문해주세요 :)",
-    description:
-      "AI를 배우고, 만드는 과정을 기록합니다.<br>논문과 기술, 그리고 새로운 아이디어를 팔로우업하고 있습니다.",
-    motto: "어려움을 넘어, 별을 향해.",
-    pause: "일시정지 Ⅱ",
-    play: "재생 ▷",
-    pending: "아직 준비 중입니다. 곧 연결할 예정입니다.",
-  },
-  en: {
-    lead: "AI Researcher",
-    techBlogIntro: "Curious about AI and software? Visit my ",
-    techBlogOutro: " :D",
-    lifeBlogIntro: "Curious about my daily life? Visit my ",
-    lifeBlogOutro: " :)",
-    description:
-      "A record of learning and building with AI.<br>Following papers, technology, and new ideas.",
-    motto: "Through hardships, to the stars.",
-    pause: "PAUSE Ⅱ",
-    play: "PLAY ▷",
-    pending: "Coming soon. This link is not connected yet.",
-  },
+export const messages = {
+  pause: "일시정지 Ⅱ",
+  play: "재생 ▷",
+  pending: "아직 준비 중입니다. 곧 연결할 예정입니다.",
 };

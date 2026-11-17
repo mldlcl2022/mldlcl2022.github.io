@@ -13,6 +13,8 @@
     "preview": "astro preview",
     "check": "astro check",
     "test:entrance": "node --test scripts/entrance.test.mjs",
+    "test:blog": "node --test scripts/blog.test.mjs",
+    "test:hero": "node --test scripts/hero-animation.test.mjs",
     "verify:build": "node scripts/verify-build.mjs"
   },
   "dependencies": {
