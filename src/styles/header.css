@@ -1,7 +1,7 @@
-/* Shared two-row header: title/language above right-aligned navigation. */
+/* Shared two-row header: title above right-aligned navigation. */
 header {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 1fr);
   align-items: center;
   min-height: 50px;
   height: auto;
@@ -34,8 +34,8 @@ header nav {
   overflow: visible;
   font-size: 12px;
 }
-nav a,
-nav button {
+header nav a,
+header nav button {
   position: relative;
   display: inline-flex;
   align-items: center;
@@ -45,11 +45,11 @@ nav button {
   color: #00bd30;
   white-space: nowrap;
 }
-nav .active {
+header nav .active {
   color: var(--green);
 }
-nav a:after,
-nav button:after {
+header nav a:after,
+header nav button:after {
   content: "";
   position: absolute;
   bottom: 0;
@@ -61,33 +61,16 @@ nav button:after {
   transform-origin: left;
   transition: transform 0.15s;
 }
-nav .active:after,
-nav a:hover:after,
-nav button:hover:after,
-nav a:focus-visible:after,
-nav button:focus-visible:after {
+header nav .active:after,
+header nav a:hover:after,
+header nav button:hover:after,
+header nav a:focus-visible:after,
+header nav button:focus-visible:after {
   transform: scaleX(1);
 }
-nav a:hover,
-nav button:hover {
+header nav a:hover,
+header nav button:hover {
   color: var(--bright);
-}
-header .languages {
-  display: flex;
-  grid-column: 2;
-  grid-row: 1;
-  align-items: center;
-  gap: 7px;
-  margin-left: 0;
-  font-size: 10px;
-  color: #087324;
-}
-.languages button {
-  padding: 5px 0;
-  font-weight: 700;
-}
-.languages button[aria-pressed="true"] {
-  color: var(--green);
 }
 @media (min-width: 1600px) {
   header {

@@ -11,6 +11,9 @@ pnpm install --frozen-lockfile
 pnpm dev
 pnpm check
 pnpm test:entrance
+pnpm test:blog
+pnpm test:hero
+node --test services/visitor-counter/worker.test.mjs
 pnpm build
 pnpm verify:build
 pnpm preview
@@ -18,6 +21,7 @@ pnpm preview
 
 개발 서버는 기본적으로 http://localhost:4321 에서 실행됩니다.
 `check`는 타입, `verify:build`는 배포 페이지·로컬 링크·공개 콘텐츠 수를 검사합니다.
+`test:blog`는 검색·카테고리·뒤로 가기, `test:hero`는 일시정지·탭 전환 시 프레임 예약을 검사합니다.
 
 ## 수정 안내
 
@@ -40,9 +44,7 @@ HOME의 문자 비 오프닝은 페이지를 열 때마다 재생하며, 운영�
 
 한글은 프로젝트에 포함한 Pretendard Variable 1.3.9를 사용합니다. 이름과 메뉴는 Disket Mono를 사용합니다. 제목 `Per Aspera Ad Astra`와 `AI Researcher`, 프로필 링크는 대소문자가 구분되는 Consolas 계열을 사용합니다. 영문 전용 폰트에서도 한글은 Pretendard로 표시합니다. 폰트와 라이선스는 `public/fonts/`에 보존합니다.
 
-KO/EN은 공통 문구와 홈 소개에 적용되며 Markdown 본문은 작성한 언어로 표시합니다.
-첫 언어 감지에는 `api.country.is`를 사용하며 방문자 IP가 전달됩니다.
-`src/data/site.ts`의 `countryEndpoint`를 빈 문자열로 바꾸면 브라우저 언어만 사용합니다.
+한국어 독자를 대상으로 한국어 화면을 제공합니다. 언어 선택과 국가·브라우저 언어에 따른 자동 전환은 사용하지 않습니다.
 ABOUT은 Notion, LinkedIn과 Life Blog는 개인 프로필로 연결됩니다. 빈 CV·Service 링크는 준비 중 안내를 표시합니다.
 
 ## 배포

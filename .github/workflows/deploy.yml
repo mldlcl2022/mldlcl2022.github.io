@@ -22,6 +22,8 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm check
       - run: pnpm test:entrance
+      - run: pnpm test:blog
+      - run: pnpm test:hero
       - run: node --test services/visitor-counter/worker.test.mjs
       - run: pnpm build
         env:
