@@ -1,0 +1,109 @@
+media:
+  - name: blog_images
+    label: 블로그 이미지
+    input: public/images/blog
+    output: /images/blog
+    categories: [image]
+    rename: safe
+
+content:
+  - name: posts
+    label: 기술 글
+    type: collection
+    path: src/content/blog
+    format: yaml-frontmatter
+    filename:
+      template: "{primary}.md"
+      field: create
+    operations:
+      rename: false
+    view:
+      primary: title
+      fields: [title, date, draft]
+      sort: [date, title]
+      default:
+        sort: date
+        order: desc
+    fields:
+      - name: title
+        label: 제목
+        type: string
+        required: true
+      - name: description
+        label: 설명
+        type: text
+        required: true
+      - name: date
+        label: 작성일
+        type: date
+        required: true
+        options:
+          format: yyyy-MM-dd
+      - name: time
+        label: 작성 시간 (한국 시간, 선택)
+        type: string
+        pattern: '^(?:$|(?:[01]\d|2[0-3]):[0-5]\d)$'
+        description: '24시간 형식, 예: 14:30. 비워두면 시간 미기록으로 표시합니다.'
+      - name: tags
+        label: 카테고리
+        type: reference
+        options:
+          collection: categories
+          multiple: true
+          value: "{primary}"
+          label: "{primary}"
+      - name: draft
+        label: 비공개 초안
+        type: boolean
+        default: true
+        description: '끄고 저장하면 main 배포 후 공개됩니다.'
+      - name: body
+        label: 본문
+        type: rich-text
+        required: true
+        options:
+          format: markdown
+          switcher: true
+          media: blog_images
+
+  - name: categories
+    label: 카테고리
+    type: collection
+    path: src/data/categories
+    format: json
+    filename:
+      template: "{primary}.json"
+      field: create
+    operations:
+      rename: false
+      delete: false
+    view:
+      primary: name
+      fields: [name, parent]
+      sort: [name]
+    fields:
+      - name: name
+        label: 이름
+        type: string
+        required: true
+      - name: parent
+        label: 상위 카테고리 (선택)
+        type: reference
+        options:
+          collection: categories
+          value: "{primary}"
+          label: "{primary}"
+    actions:
+      - name: delete-unused-category
+        label: 비어 있는 카테고리 삭제
+        scope: entry
+        workflow: delete-category.yml
+        ref: main
+        confirm:
+          title: 카테고리를 삭제할까요?
+          message: '연결된 글이나 하위 카테고리가 없을 때만 삭제됩니다.'
+          button: 삭제 검사 및 실행
+
+settings:
+  content:
+    merge: true

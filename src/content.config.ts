@@ -10,7 +10,7 @@ const common = {
 };
 const blog = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/blog" }),
-  schema: z.object({ ...common, time: z.string().regex(/^(?:[01]\d|2[0-3]):[0-5]\d$/).optional() }),
+  schema: z.object({ ...common, time: z.union([z.string().regex(/^(?:[01]\d|2[0-3]):[0-5]\d$/), z.literal('')]).optional() }),
 });
 const projects = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/projects" }),

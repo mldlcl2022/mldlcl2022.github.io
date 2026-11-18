@@ -20,9 +20,11 @@ jobs:
           node-version: 24
       - run: npm install --global pnpm@11.25.0
       - run: pnpm install --frozen-lockfile
+      - run: pnpm validate:content
       - run: pnpm check
       - run: pnpm test:entrance
       - run: pnpm test:blog
+      - run: pnpm test:categories
       - run: pnpm test:hero
       - run: node --test services/visitor-counter/worker.test.mjs
       - run: pnpm build
