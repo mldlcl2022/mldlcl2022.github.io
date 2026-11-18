@@ -11,7 +11,7 @@ src/
 ├─ content/
 │  ├─ blog/           Markdown 기술 글
 │  └─ projects/       Markdown 프로젝트 소개
-├─ data/              site.ts: 메뉴·프로필·공통 문구, blog.ts: 카테고리 계층
+├─ data/              site.ts: 메뉴·프로필·공통 문구, categories/*.json: 카테고리
 ├─ layouts/           BaseLayout, PostLayout: 페이지 공통 틀
 ├─ lib/content.ts     공개 글 필터·날짜·정렬
 ├─ pages/             URL에 대응하는 페이지; 기존 주소 유지
@@ -54,7 +54,7 @@ docs/                 구조·운영 설명
 | 카드 디자인                      | `src/components/content/EntryCard.astro`, `src/styles/content.css` |
 | 글 본문 디자인                   | `src/styles/prose.css`                                             |
 | 블로그 검색·카테고리 디자인       | `src/pages/blog/index.astro`, `src/styles/blog.css`                 |
-| 카테고리 계층·검색 동작           | `src/data/blog.ts`, `src/scripts/blog.ts`                          |
+| 카테고리 계층·검색 동작           | `src/data/categories/*.json`, `src/data/blog.ts`, `src/scripts/blog.ts` |
 
 `pages`에는 URL에 필요한 파일을 유지하고, 반복되는 UI는 `components`에서 재사용합니다.
 홈 애니메이션과 오프닝 CSS·JavaScript는 홈에서만 불러옵니다.
